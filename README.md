@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icons/forma-logo.png" width="110" alt="Forma Logo">
+  <img src="formalogo.png" width="110" alt="Forma Logo">
 </p>
 
 <h1 align="center">Forma</h1>
@@ -47,7 +47,7 @@ iPhone je ein gleichnamiger Kurzbefehl existieren.
 | Pfad | Inhalt |
 |---|---|
 | `index.html` | Die komplette App (HTML + CSS + JS, self-contained) |
-| `apple-touch-icon.png`, `favicon-*.png`, `icon-*.png`, `forma-logo.png` | App-Icons aus dem Forma-Logo (Entwurf 15), flach im Root |
+| `appletouchicon.png`, `favicon16/32.png`, `icon192/512.png`, `formalogo.png` | App-Icons aus dem Forma-Logo (Pfeile «Wachsend», Runde 3 Variante 3.4), flach im Root |
 | `manifest.webmanifest` | PWA-Manifest (Name, Icons, Standalone-Modus) |
 | `design/` | Design-Unterlagen aus Claude Design |
 | `design/forma-phone.dc.html` | Desktop-Vorschau der App im iPhone-Rahmen |

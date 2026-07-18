@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Forma">
 <meta name="theme-color" content="#000000">
 <title>Forma</title>
-<!-- Forma-Logo (Entwurf 15) als App-Icon: Safari «Zum Home-Bildschirm» nutzt
+<!-- Forma-Logo (Pfeile «Wachsend», Runde 3 Variante 3.4) als App-Icon: Safari «Zum Home-Bildschirm» nutzt
      apple-touch-icon, Android/Chrome das Manifest. Alles liegt flach im
      Hauptordner, damit auch ein Upload ohne Ordnerstruktur funktioniert. -->
 <link rel="manifest" href="manifest.webmanifest">
@@ -73,7 +73,8 @@ a{color:var(--blue); text-decoration:none}
 #settingsBtn svg{display:block}
 
 /* ============ Views / Layout ============ */
-#main{flex:1; min-height:0; display:flex; flex-direction:column}
+#main{flex:1; min-height:0; display:flex; flex-direction:column;
+  padding-bottom:calc(62px + clamp(12px, calc(var(--sab) - 13px), 21px))}
 .view{display:none; flex:1; min-height:0; flex-direction:column; padding:4px 16px 12px}
 .view.active{display:flex}
 .vtitle{font-size:30px; font-weight:700; letter-spacing:-0.5px; line-height:1.15}
@@ -266,8 +267,10 @@ html[data-theme="light"] .wheel-selbar{background:rgba(0,0,0,0.06)}
 .pl-none{color:var(--l2); font-size:13px; font-weight:500; margin-top:4px}
 
 /* ============ Tab-Bar (Liquid-Glass-Pille) ============ */
-#tabbar{flex:none; position:relative; display:flex; align-items:stretch; gap:4px;
-  height:62px; padding:5px; margin:0 22px max(12px, calc(var(--sab) - 13px));
+#tabbar{flex:none; position:fixed; left:22px; right:22px; z-index:50;
+  bottom:clamp(12px, calc(var(--sab) - 13px), 21px);
+  display:flex; align-items:stretch; gap:4px;
+  height:62px; padding:5px; margin:0;
   border-radius:999px; background:rgba(20,20,20,0.9);
   -webkit-backdrop-filter:saturate(180%) blur(30px); backdrop-filter:saturate(180%) blur(30px);
   box-shadow:0 10px 28px rgba(0,0,0,0.42), inset 0 0 0 0.5px rgba(255,255,255,0.04);
