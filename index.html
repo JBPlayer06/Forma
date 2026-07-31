@@ -149,12 +149,8 @@ html[data-theme="light"] :is(.daycard,.wrow,.lbtn,.ntc-btn,.ringcard,.pline,#set
 .dc-ringwrap{position:relative; width:min(78vw, 268px); aspect-ratio:1/1; flex:none;
   display:flex; align-items:center; justify-content:center}
 .dc-ringwrap svg{position:absolute; inset:0; width:100%; height:100%}
-/* Plus: zweites Training für den Tag */
-.plus-btn{width:40px; height:40px; border-radius:50%; background:#000000; flex:none;
-  box-shadow:inset 0 0 0 1px var(--bg3); color:#FFFFFF;
-  display:flex; align-items:center; justify-content:center; transition:transform .2s ease}
-.plus-btn:active{transform:scale(1.06)}
-/* Schnell-Umschalter auf der Kachel: Gegenteil-Aktion als Knopf */
+/* Schnell-Umschalter auf der Kachel: Gegenteil-Aktion als Knopf
+   (.plus-btn in der Kachel-Ecke ist seit 07-30 raus, ersetzt durch #plusFab) */
 .checkcircle-btn{width:48px; height:48px; border-radius:50%; background:var(--green); color:#FFFFFF;
   flex:none; display:flex; align-items:center; justify-content:center; transition:transform .2s ease}
 .checkcircle-btn:active{transform:scale(0.95)}
@@ -315,9 +311,9 @@ html[data-theme="light"] .wheel-selbar{background:rgba(0,0,0,0.06)}
 .pl-none{color:var(--l2); font-size:13px; font-weight:500; margin-top:4px}
 
 /* ============ Tab-Bar (Liquid-Glass-Pille) ============ */
-#tabbar{flex:none; position:fixed; left:0; right:0; z-index:50;
+#tabbar{flex:none; position:fixed; left:16px; z-index:50;
   bottom:19.75px; /* JB-Feintuning 18.07.: erst −5px von unten, dann +1.25px oben und unten wieder dazu (Oberkante 79.25px ueber Rand). Bewusst ohne safe-area-Formel (lieferte auf dem Geraet falsche Werte) */
-  width:292px; max-width:calc(100vw - 44px); margin:0 auto; /* Build 7: kompakte Kapsel-Breite wie iOS-26-Referenz (Kurzbefehle), zentriert statt randbuendig */
+  width:292px; max-width:calc(100vw - 103.5px); margin:0; /* JB 07-30 (Variante A): Bar unveraendert gross, aber links am Content-Rand statt zentriert; rechts daneben der Plus-Knopf (#plusFab). max-width laesst der Kapsel auf schmalen Geraeten 12px Luft zum Plus (16+59.5+16+12) */
   display:flex; align-items:stretch; gap:4px;
   height:59.5px; padding:5px;
   border-radius:999px; background:rgba(46,46,50,0.82); /* Build 7: helleres Referenz-Grau statt rgba(20,20,20,.9) */
@@ -358,6 +354,31 @@ html[data-theme="light"] #tabbar{background:rgba(255,255,255,0.85);
 html[data-theme="light"] .tab-indicator{background:rgba(0,0,0,0.06); box-shadow:none}
 #tabbar.no-anim .tab-indicator{transition:none}
 #tabbar.is-dragging .tab-indicator{transition:none}
+
+/* Plus-Knopf neben der Bar (JB 07-30, Variante A): ersetzt den frueheren Plus
+   in der Kachel-Ecke. Gleiches Glas-Material, gleiche Hoehe und Unterkante wie
+   die Bar, damit beide als Set lesen; Funktion unveraendert (Zusatz-Training). */
+#plusFab{position:fixed; right:16px; bottom:19.75px; z-index:50;
+  width:59.5px; height:59.5px; border-radius:50%; color:var(--blue);
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(46,46,50,0.82);
+  -webkit-backdrop-filter:saturate(170%) blur(22px); backdrop-filter:saturate(170%) blur(22px);
+  box-shadow:0 10px 28px rgba(0,0,0,0.38);
+  transition:transform .2s ease}
+#plusFab:active{transform:scale(0.94)}
+#plusFab[hidden]{display:none}
+#plusFab::before{content:""; position:absolute; inset:0; border-radius:inherit; padding:1px;
+  background:linear-gradient(180deg,
+    rgba(255,255,255,0) 0%, rgba(255,255,255,.03) 45%,
+    rgba(255,255,255,.12) 72%, rgba(255,255,255,.30) 100%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask-composite:exclude;
+  pointer-events:none; z-index:2}
+html[data-theme="light"] #plusFab::before{content:none}
+html[data-theme="light"] #plusFab{background:rgba(255,255,255,0.85);
+  box-shadow:0 8px 24px rgba(0,0,0,0.18), inset 0 0 0 0.5px rgba(0,0,0,0.06)}
 
 /* ============ Vollbild-Fenster (Bibliothek) ============ */
 #fullpage{position:fixed; inset:0; z-index:70; background:var(--bg);
@@ -554,7 +575,9 @@ html[data-theme="light"] .alert .arow button + button{box-shadow:-0.5px 0 0 rgba
 
 @media(min-width:700px){
   #topbar,.view,.fp-head,.fp-body{padding-left:calc(50vw - 334px); padding-right:calc(50vw - 334px)}
-  #tabbar{max-width:668px; margin-left:auto; margin-right:auto}
+  /* JB 07-30: Bar und Plus folgen auf breiten Screens den Kanten der 668px-Inhaltsspalte */
+  #tabbar{left:calc(50vw - 334px)}
+  #plusFab{right:calc(50vw - 334px)}
 }
 </style>
 </head>
@@ -602,6 +625,7 @@ html[data-theme="light"] .alert .arow button + button{box-shadow:-0.5px 0 0 rgba
   <button class="tab" data-tab="week"><span class="ico" data-ico="calendar"></span>Woche<span class="tab-badge" hidden></span></button>
   <button class="tab" data-tab="progress"><span class="ico" data-ico="chart.bar.fill"></span>Fortschritt</button>
 </nav>
+<button id="plusFab" aria-label="Training hinzufügen" hidden></button>
 
 <div id="fullpage"></div>
 <div id="overlay"></div>
@@ -972,15 +996,8 @@ function buildDayCard(dayIdx){
     b.onclick = (e) => { e.stopPropagation(); d.cycle++; saveWeek(); showToday(); };
     headR.appendChild(b);
   }
-  /* Plus: zweites Training für den Tag, Auswahl wieder übers Rad */
-  const wheelOpen = (unit && unit.kind === 'choice' && !unit.chosen) || addingExtraDay === dayIdx;
-  if (!wheelOpen){
-    const plus = document.createElement('button'); plus.className = 'plus-btn';
-    plus.setAttribute('aria-label','Training hinzufügen');
-    plus.innerHTML = svgStroke('plus', 22, 4.4);
-    plus.onclick = () => { addingExtraDay = dayIdx; showToday(); };
-    headR.appendChild(plus);
-  }
+  /* Plus (zweites Training) sitzt seit 07-30 nicht mehr in der Kachel-Ecke,
+     sondern als #plusFab unten neben der Tab-Bar (Variante A). */
   head.appendChild(headR);
   card.appendChild(head);
 
@@ -1173,6 +1190,7 @@ function saveSnapshot(){
     rest: !unit
   };
   saveJSON(K.prefs, prefs);
+  updatePlusFab(); /* laeuft bei jedem Karten-Rebuild mit (JB 07-30) */
 }
 function showToday(){
   stage.innerHTML = '';
@@ -1976,9 +1994,28 @@ function switchTab(name){
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('act', t.dataset.tab === name));
   if (name === 'week') renderWeekView();
   if (name === 'progress') renderProgress();
+  updatePlusFab();
   repositionTabIndicator(true);
 }
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => switchTab(t.dataset.tab));
+
+/* ---- Plus-Knopf neben der Bar (JB 07-30): Zusatz-Training fuer heute ----
+   Sichtbar nur auf dem Heute-Tab und nur, wenn gerade kein Rad offen ist
+   (gleiche Regel wie der fruehere Ecken-Plus). Zustand wird bei jedem
+   Karten-Rebuild (saveSnapshot) und Tab-Wechsel neu berechnet. */
+const plusFab = document.getElementById('plusFab');
+if (plusFab){
+  plusFab.innerHTML = svgStroke('plus', 26, 4.2);
+  plusFab.onclick = () => { addingExtraDay = todayIdx(); showToday(); };
+}
+function updatePlusFab(){
+  if (!plusFab) return;
+  const idx = todayIdx();
+  const unit = frontUnit(idx);
+  const wheelOpen = (unit && unit.kind === 'choice' && !unit.chosen) || addingExtraDay === idx;
+  const onToday = document.getElementById('view-today').classList.contains('active');
+  plusFab.hidden = !onToday || wheelOpen;
+}
 
 /* Bar-Position: fix per CSS (bottom:16px). Die fruehere JS-Selbstkalibrierung ist raus,
    weil die wahre Ursache der schwebenden Bar der iOS-26-black-translucent-Bug war
