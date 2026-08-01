@@ -133,6 +133,54 @@ html[data-theme="light"] :is(.daycard,.wrow,.lbtn,.ntc-btn,.ringcard,.pline,#set
   to{transform:rotateY(-90deg) scale(0.96); opacity:0.9}}
 @keyframes flipIn{from{transform:rotateY(90deg) scale(0.96); opacity:0.9}
   to{transform:rotateY(0) scale(1); opacity:1}}
+/* ===== Poster-Kachel (JB 07-31, Variante 30 «Poster-Diagonale») =====
+   Titel gross oben links, Ring unten rechts angeschnitten, App-Knoepfe unten
+   links, Status-Knoepfe oben rechts, dazwischen die Phasen-Karte mit Batterie.
+   Gilt nur fuer die normale Trainingskachel; Ruhetag und Rad-Auswahl behalten
+   ihr zentriertes Layout (JB-Entscheid). */
+.daycard.poster{padding:0; /* position bleibt absolute/inset:0 wie bei .daycard */
+  background-image:radial-gradient(220px 200px at 100% 100%, rgba(10,132,255,0.10), transparent 70%)}
+html[data-theme="light"] .daycard.poster{background-image:none}
+.pc-head{position:relative; z-index:4; display:flex; align-items:flex-start; gap:10px; padding:20px 18px 0}
+.pc-txt{min-width:0; flex:1}
+.pc-cap{font-size:11px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--l2)}
+.pc-name{font-size:40px; line-height:1.05; font-weight:800; letter-spacing:-0.035em; margin:6px 0;
+  overflow-wrap:anywhere}
+.pc-cat{font-size:11.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase}
+.pc-act{flex:none; display:flex; align-items:center; gap:8px}
+.pc-act .circle-btn,.pc-act .checkcircle-btn{width:36px; height:36px}
+.pc-act .xsquare-btn{width:36px; height:36px; border-radius:11px;
+  background:rgba(255,69,58,0.14); color:var(--red); box-shadow:inset 0 0 0 1px rgba(255,69,58,0.32)}
+html[data-theme="light"] .pc-act .xsquare-btn{background:rgba(255,69,58,0.12)}
+.pc-badge{flex:none; background:var(--bg3); border-radius:6px; padding:5px 9px;
+  font-size:12px; font-weight:700; color:var(--l2)}
+/* Phasen-Karte mit orangem Reiter (Design 30 «Karte mit Reiter») */
+/* Phasen-Karte in der oberen Bildmitte: fuellt den Raum unter dem Titel,
+   ohne dem Ring in der unteren Ecke zu nahe zu kommen. */
+.pc-mid{position:relative; z-index:4; flex:1; min-height:0; display:flex; align-items:center;
+  margin:16px 18px 0; padding-bottom:44%}
+.phcard{position:relative; width:100%; background:var(--bg3); border-radius:14px; padding:21px 13px 13px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.05)}
+html[data-theme="light"] .phcard{background:rgba(0,0,0,0.05); box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.08)}
+.ph-tab{position:absolute; top:-11px; left:13px; height:22px; display:inline-flex; align-items:center;
+  gap:6px; background:var(--orange); color:#1C1C1E; border-radius:7px; padding:0 10px;
+  font-size:10.5px; font-weight:800; letter-spacing:0.02em; white-space:nowrap}
+.ph-tab i{font-style:normal; opacity:0.55}
+.ph-bat{display:flex; gap:5px}
+.ph-bat i{flex:1; height:16px; border-radius:3px; background:rgba(48,209,88,0.16)}
+.ph-bat i.on{background:var(--green)}
+html[data-theme="light"] .ph-bat i:not(.on){background:rgba(48,209,88,0.28)}
+.ph-lbl{margin-top:9px; display:flex; justify-content:space-between; align-items:baseline}
+.ph-lbl span{font-size:8.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--l2)}
+.ph-lbl b{font-size:11px; font-weight:800; color:var(--l1)}
+/* Angeschnittener Ring unten rechts. Masse relativ zur Kachel, damit das
+   Verhaeltnis auf jedem Geraet gleich bleibt (Vorlage: 236px auf 228px Karte). */
+.pc-ring{position:absolute; right:-28%; bottom:-14%; width:104%; z-index:1}
+.pc-ring .dc-ringwrap{width:100%}
+.pc-ring .dc-icobtn{width:44%}
+/* App-Knoepfe unten links, gestapelt */
+.pc-apps{position:absolute; left:18px; bottom:18px; z-index:5; display:flex; flex-direction:column; gap:8px}
+
 .dc-head{display:flex; align-items:flex-start; gap:10px}
 .dc-day{font-size:26px; font-weight:700; letter-spacing:-0.4px}
 .dc-date{color:var(--l2); font-size:14px; font-weight:500; margin-top:2px}
@@ -306,8 +354,10 @@ html[data-theme="light"] .wheel-selbar{background:rgba(0,0,0,0.06)}
 .pl-cat{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em}
 .pl-count{margin-left:auto; font-size:13px; color:var(--l2); font-weight:600}
 .pl-pct{font-size:22px; font-weight:700; letter-spacing:-0.4px; margin:2px 0 7px}
-.pl-bar{display:flex; gap:3px; height:22px} /* Batterie: Reihe stehender Pillen-Segmente */
-.pl-seg{flex:1; border-radius:999px; transition:background .25s ease}
+/* Batterie im Fortschritt: seit 07-31 gleiche Optik wie die Wochen-Batterie auf
+   der Heute-Kachel (eckige Segmente, 5px Abstand, flache Farbe statt Verlauf). */
+.pl-bar{display:flex; gap:5px; height:16px}
+.pl-seg{flex:1; border-radius:3px; transition:background .25s ease}
 .pl-none{color:var(--l2); font-size:13px; font-weight:500; margin-top:4px}
 
 /* ============ Tab-Bar (Liquid-Glass-Pille) ============ */
@@ -805,6 +855,41 @@ function validatePeriods(pl){
 }
 function currentPhase(){ return phaseForMonth(today().getMonth() + 1); }
 
+/* ---------- Phasen-Nummerierung (JB 07-31) ----------
+   Der Plan hat zwei Phasen-ARTEN (Kraft, Cardio) mit je zwei Perioden, zusammen
+   also vier Phasen im Jahr. Gezaehlt wird ab Jahresbeginn: Die Periode, die den
+   Januar enthaelt, ist Phase 1, danach im Kalenderlauf weiter. Damit stimmt die
+   Nummer auch, wenn JB die Perioden im Plan-Editor verschiebt. */
+function phaseList(){
+  const ps = [];
+  for (const ph of ['kraft','cardio'])
+    for (const p of plan[ph].periods) ps.push({ ph, from:p.from, to:p.to });
+  if (!ps.length) return [];
+  let start = ps.find(p => monthInPeriod(1, p));
+  if (!start) start = ps.slice().sort((a,b) => a.from - b.from)[0];
+  const off = m => (m - start.from + 12) % 12;
+  return ps.slice().sort((a,b) => off(a.from) - off(b.from));
+}
+function currentPhaseInfo(){
+  const m = today().getMonth() + 1;
+  const list = phaseList();
+  const idx = list.findIndex(p => monthInPeriod(m, p));
+  if (idx < 0) return { num:null, total:list.length, label:CATS[currentPhase()].label, span:'' };
+  const p = list[idx];
+  return {
+    num: idx + 1,
+    total: list.length,
+    label: CATS[p.ph].label,
+    span: MONTH_NAMES[p.from - 1] + ' bis ' + MONTH_NAMES[p.to - 1]
+  };
+}
+/* Wochen-Batterie: ein Segment je Wochentag. Trainiert = sattes Gruen,
+   nichts gemacht = blasses Gruen (JB-Vorgabe: kein neutrales Grau). */
+function weekBattery(){
+  const days = week.days.map(d => d.units.some(u => u.status === 'done'));
+  return { days, done: days.filter(Boolean).length, total: days.length };
+}
+
 /* ---------- Wochen-Zustand ---------- */
 function validWeekShape(w){
   return !!w && typeof w === 'object' && typeof w.key === 'string'
@@ -1064,118 +1149,198 @@ function buildDayCard(dayIdx){
   const t = unitTraining(unit);
   const tr = TR[t], cat = CATS[tr.cat];
 
-  /* Trainings-Kreis mit Deko-Ringen drumherum */
+  /* ===== Poster-Layout (JB 07-31, Variante 30 + Design 30) =====
+     Kopf und Mitte aus dem Standard-Aufbau werden hier verworfen und die Karte
+     neu als Poster gesetzt: Titel gross oben links, Status-Knoepfe oben rechts,
+     Phasen-Karte mit Batterie in der Mitte, Ring unten rechts angeschnitten,
+     App-Knoepfe unten links. Alle Funktionen bleiben unveraendert. */
+  card.innerHTML = '';
+  card.className = 'daycard poster';
+
+  /* --- Kopf: Datum, Trainingsname, Kategorie --- */
+  const pHead = document.createElement('div'); pHead.className = 'pc-head';
+  const pTxt = document.createElement('div'); pTxt.className = 'pc-txt';
+  const pCap = document.createElement('div'); pCap.className = 'pc-cap';
+  pCap.textContent = DAY_NAMES[dayIdx] + ' · ' + fmtDate(dateOfDay(dayIdx));
+  const pName = document.createElement('div'); pName.className = 'pc-name'; pName.textContent = tr.name;
+  const pCat = document.createElement('div'); pCat.className = 'pc-cat';
+  pCat.style.color = cat.color; pCat.textContent = cat.label;
+  pTxt.appendChild(pCap); pTxt.appendChild(pName); pTxt.appendChild(pCat);
+  pHead.appendChild(pTxt);
+
+  /* --- Aktionen oben rechts: Zaehler, Zurueck, Status --- */
+  const act = document.createElement('div'); act.className = 'pc-act';
+  if (d.units.length > 1){
+    const b = document.createElement('button'); b.className = 'pc-badge';
+    b.textContent = 'x' + d.units.length;
+    b.setAttribute('aria-label','Trainings des Tages durchschalten');
+    b.onclick = (e) => { e.stopPropagation(); d.cycle++; saveWeek(); showToday(); };
+    act.appendChild(b);
+  }
+  if (unit.kind === 'choice' && !unit.status){
+    const back = document.createElement('button'); back.className = 'circle-btn';
+    back.setAttribute('aria-label','Training neu wählen');
+    back.innerHTML = svgStroke('back', 20, 2.6);
+    back.onclick = () => { unit.chosen = null; saveWeek(); showToday(); renderWeekView(); renderProgress(); };
+    act.appendChild(back);
+  }
+  /* Build 9: ueber den Plus-Knopf hinzugefuegte Trainings wieder entfernbar */
+  if (unit.added && unit.kind !== 'choice' && !unit.status){
+    const back = document.createElement('button'); back.className = 'circle-btn';
+    back.setAttribute('aria-label','Hinzugefügtes Training entfernen');
+    back.innerHTML = svgStroke('back', 20, 2.6);
+    back.onclick = () => {
+      const dd = week.days[dayIdx];
+      dd.units = dd.units.filter(u => u.id !== unit.id);
+      saveWeek(); showToday(); renderWeekView(); renderProgress(); updateBadges();
+    };
+    act.appendChild(back);
+  }
+  if (unit.status === 'skip'){
+    const yes = document.createElement('button'); yes.className = 'checkcircle-btn';
+    yes.setAttribute('aria-label','Als erledigt markieren');
+    yes.innerHTML = svgStroke('check', 20, 4.2);
+    yes.onclick = () => { unit.status = 'done'; saveWeek(); showToday(); renderWeekView(); renderProgress(); updateBadges(); };
+    act.appendChild(yes);
+  } else if (!unit.status){
+    const no = document.createElement('button'); no.className = 'xsquare-btn';
+    no.setAttribute('aria-label','Nicht gemacht');
+    no.innerHTML = svgStroke('x', 18, 4.2);
+    no.onclick = () => { unit.status = 'skip'; saveWeek(); showToday(); renderWeekView(); renderProgress(); updateBadges(); };
+    act.appendChild(no);
+  }
+  if (unit.status){
+    const un = document.createElement('button'); un.className = 'circle-btn';
+    un.setAttribute('aria-label','Rückgängig');
+    un.innerHTML = svgStroke('back', 20, 2.6);
+    un.onclick = () => { unit.status = null; saveWeek(); showToday(); renderWeekView(); renderProgress(); updateBadges(); };
+    act.appendChild(un);
+  }
+  pHead.appendChild(act);
+  card.appendChild(pHead);
+
+  /* --- Mitte: Phasen-Karte mit orangem Reiter und Wochen-Batterie --- */
+  const pMid = document.createElement('div'); pMid.className = 'pc-mid';
+  const phc = document.createElement('div'); phc.className = 'phcard';
+  const info = currentPhaseInfo();
+  const tab = document.createElement('span'); tab.className = 'ph-tab';
+  if (info.num){
+    tab.appendChild(document.createTextNode('Phase ' + info.num));
+    const dot = document.createElement('i'); dot.textContent = '·';
+    tab.appendChild(dot);
+  }
+  tab.appendChild(document.createTextNode(info.label));
+  tab.title = info.span || '';
+  phc.appendChild(tab);
+  const bat = document.createElement('div'); bat.className = 'ph-bat';
+  const wb = weekBattery();
+  wb.days.forEach(on => {
+    const seg = document.createElement('i');
+    if (on) seg.className = 'on';
+    bat.appendChild(seg);
+  });
+  phc.appendChild(bat);
+  const lbl = document.createElement('div'); lbl.className = 'ph-lbl';
+  const ls = document.createElement('span'); ls.textContent = 'Wochenziel';
+  const lb = document.createElement('b'); lb.textContent = wb.done + ' von ' + wb.total;
+  lbl.appendChild(ls); lbl.appendChild(lb);
+  phc.appendChild(lbl);
+  pMid.appendChild(phc);
+  card.appendChild(pMid);
+
+  /* --- Ring unten rechts, angeschnitten --- */
   const rw = decoRings(t);
   const icoBtn = document.createElement('button'); icoBtn.className = 'dc-icobtn';
   icoBtn.setAttribute('aria-label','Übungen ' + cat.label + ' öffnen');
   icoBtn.appendChild(ico(tr.icon, cat.icoCls));
   icoBtn.onclick = () => openLibrary(tr.cat);
   rw.appendChild(icoBtn);
-  mid.appendChild(rw);
+  const ringBox = document.createElement('div'); ringBox.className = 'pc-ring';
+  ringBox.appendChild(rw);
+  card.appendChild(ringBox);
 
-  const nm = document.createElement('div'); nm.className = 'dc-name'; nm.textContent = tr.name;
-  mid.appendChild(nm);
-  const ct = document.createElement('div'); ct.className = 'dc-cat'; ct.style.color = cat.color; ct.textContent = cat.label;
-  mid.appendChild(ct);
-
-  /* Fusszeile: ganz links in der Ecke der NTC-Knopf (JB 07-09), daneben
-     Rad-Zurück (offener Wahltag) bzw. Rückgängig (bewertet),
-     rechts der Schnell-Umschalter: X = nicht gemacht, grüner Haken = gemacht.
-     So lässt sich der Status direkt auf der Kachel hin- und herschalten. */
-  const foot = document.createElement('div'); foot.className = 'dc-foot';
-  /* Build 8: GOWOD-Knopf vor NTC, sobald ein Beweglichkeits-Training (Kategorie
-     flex) auf der Kachel liegt — gleiche Optik/Groesse wie der NTC-Knopf. */
+  /* --- App-Knoepfe unten links (GOWOD vor NTC, Build 8) --- */
+  const apps = document.createElement('div'); apps.className = 'pc-apps';
   if (tr.cat === 'flex' && !unit.status){
     const g = document.createElement('a'); g.className = 'ntc-btn';
     g.href = 'shortcuts://run-shortcut?name=GOWOD';
     g.setAttribute('aria-label','GOWOD öffnen');
     g.innerHTML = LOGOS.gowod ? '<img class="applogo" src="' + LOGOS.gowod + '" alt="">' : '';
-    foot.appendChild(g);
+    apps.appendChild(g);
   }
   if (tr.ntc && !unit.status){
     const a = document.createElement('a'); a.className = 'ntc-btn';
     a.href = 'shortcuts://run-shortcut?name=NTC';
     a.setAttribute('aria-label','Nike Training Club öffnen');
     a.innerHTML = LOGOS.ntc ? '<img class="applogo" src="' + LOGOS.ntc + '" alt="">' : '';
-    foot.appendChild(a);
+    apps.appendChild(a);
   }
-  if (unit.kind === 'choice' && !unit.status){
-    const back = document.createElement('button'); back.className = 'circle-btn';
-    back.setAttribute('aria-label','Training neu wählen');
-    back.innerHTML = svgStroke('back', 22, 2.6);
-    back.onclick = () => { unit.chosen = null; saveWeek(); showToday(); renderWeekView(); renderProgress(); };
-    foot.appendChild(back);
-  }
-  /* Build 9 (Bugfix): Ueber den Plus-Knopf hinzugefuegte Trainings (added)
-     liessen sich nicht mehr entfernen. Ihr Zurueck-Knopf loescht die Einheit
-     jetzt wieder komplett vom Tag. Wahltage behalten ihr Verhalten (oben:
-     neu waehlen), normale feste Trainings haben weiterhin keinen Zurueck-Knopf. */
-  if (unit.added && unit.kind !== 'choice' && !unit.status){
-    const back = document.createElement('button'); back.className = 'circle-btn';
-    back.setAttribute('aria-label','Hinzugefügtes Training entfernen');
-    back.innerHTML = svgStroke('back', 22, 2.6);
-    back.onclick = () => {
-      const d = week.days[dayIdx];
-      d.units = d.units.filter(u => u.id !== unit.id);
-      saveWeek(); showToday(); renderWeekView(); renderProgress(); updateBadges();
-    };
-    foot.appendChild(back);
-  }
-  const spacer = document.createElement('div'); spacer.className = 'foot-spacer';
-  foot.appendChild(spacer);
-  if (unit.status === 'skip'){
-    const yes = document.createElement('button'); yes.className = 'checkcircle-btn';
-    yes.setAttribute('aria-label','Als erledigt markieren');
-    yes.innerHTML = svgStroke('check', 26, 4.2);
-    yes.onclick = () => { unit.status = 'done'; saveWeek(); showToday(); renderWeekView(); renderProgress(); updateBadges(); };
-    foot.appendChild(yes);
-  } else {
-    const no = document.createElement('button'); no.className = 'xsquare-btn';
-    no.setAttribute('aria-label','Nicht gemacht');
-    no.innerHTML = svgStroke('x', 24, 4.2);
-    no.onclick = () => { unit.status = 'skip'; saveWeek(); showToday(); renderWeekView(); renderProgress(); updateBadges(); };
-    foot.appendChild(no);
-  }
-  if (unit.status){
-    /* Zurück springt in die rechte Ecke (dorthin, wo X/Haken standen),
-       das Wechsel-Symbol steht daneben (JB 07-06) */
-    const un = document.createElement('button'); un.className = 'circle-btn';
-    un.setAttribute('aria-label','Rückgängig');
-    un.innerHTML = svgStroke('back', 22, 2.6);
-    un.onclick = () => { unit.status = null; saveWeek(); showToday(); renderWeekView(); renderProgress(); updateBadges(); };
-    foot.appendChild(un);
-  }
-  card.appendChild(foot);
+  if (apps.children.length) card.appendChild(apps);
+
   return card;
 }
 
 /* Abschieds-Karte: Schnappschuss der zuletzt gezeigten Karte */
 function buildSnapshotCard(snap){
+  /* 07-31: gleiche Poster-Optik wie die richtige Kachel, damit der Tageswechsel-
+     Flip nicht zwischen zwei Layouts springt. Reine Anzeige, keine Knoepfe. */
   const card = document.createElement('div');
-  card.className = 'daycard';
-  const head = document.createElement('div'); head.className = 'dc-head';
-  const hl = document.createElement('div');
-  const day = document.createElement('div'); day.className = 'dc-day'; day.textContent = snap.dayName || '';
-  const date = document.createElement('div'); date.className = 'dc-date'; date.textContent = snap.dateStr || '';
-  hl.appendChild(day); hl.appendChild(date);
-  head.appendChild(hl);
-  card.appendChild(head);
-  const mid = document.createElement('div'); mid.className = 'dc-mid';
+  card.className = 'daycard poster';
+  const pHead = document.createElement('div'); pHead.className = 'pc-head';
+  const pTxt = document.createElement('div'); pTxt.className = 'pc-txt';
+  const pCap = document.createElement('div'); pCap.className = 'pc-cap';
+  pCap.textContent = (snap.dayName || '') + (snap.dateStr ? ' · ' + snap.dateStr : '');
+  pTxt.appendChild(pCap);
+  const pName = document.createElement('div'); pName.className = 'pc-name';
+  const pCat = document.createElement('div'); pCat.className = 'pc-cat';
+  let trKey = null;
   if (snap.t && TR[snap.t]){
     const tr = TR[snap.t], cat = CATS[tr.cat];
+    trKey = snap.t;
+    pName.textContent = tr.name;
+    pCat.style.color = cat.color; pCat.textContent = cat.label;
+  } else {
+    pName.textContent = snap.rest ? 'Ruhetag' : 'Wahltag';
+    pCat.style.color = 'var(--l2)';
+    pCat.textContent = snap.rest ? 'Kein Training geplant' : 'Noch nicht gewählt';
+  }
+  pTxt.appendChild(pName); pTxt.appendChild(pCat);
+  pHead.appendChild(pTxt);
+  card.appendChild(pHead);
+
+  const pMid = document.createElement('div'); pMid.className = 'pc-mid';
+  const phc = document.createElement('div'); phc.className = 'phcard';
+  const info = currentPhaseInfo();
+  const tab = document.createElement('span'); tab.className = 'ph-tab';
+  if (info.num){
+    tab.appendChild(document.createTextNode('Phase ' + info.num));
+    const dot = document.createElement('i'); dot.textContent = '·';
+    tab.appendChild(dot);
+  }
+  tab.appendChild(document.createTextNode(info.label));
+  phc.appendChild(tab);
+  const bat = document.createElement('div'); bat.className = 'ph-bat';
+  const wb = weekBattery();
+  wb.days.forEach(on => { const seg = document.createElement('i'); if (on) seg.className = 'on'; bat.appendChild(seg); });
+  phc.appendChild(bat);
+  const lbl = document.createElement('div'); lbl.className = 'ph-lbl';
+  const ls = document.createElement('span'); ls.textContent = 'Wochenziel';
+  const lb = document.createElement('b'); lb.textContent = wb.done + ' von ' + wb.total;
+  lbl.appendChild(ls); lbl.appendChild(lb);
+  phc.appendChild(lbl);
+  pMid.appendChild(phc);
+  card.appendChild(pMid);
+
+  if (trKey){
+    const tr = TR[trKey], cat = CATS[tr.cat];
+    const rw = decoRings(trKey);
     const ib = document.createElement('div'); ib.className = 'dc-icobtn';
     ib.appendChild(ico(tr.icon, cat.icoCls));
-    mid.appendChild(ib);
-    const nm = document.createElement('div'); nm.className = 'dc-name'; nm.textContent = tr.name;
-    mid.appendChild(nm);
-    const ct = document.createElement('div'); ct.className = 'dc-cat'; ct.style.color = cat.color; ct.textContent = cat.label;
-    mid.appendChild(ct);
-  } else {
-    const nm = document.createElement('div'); nm.className = 'dc-name';
-    nm.textContent = snap.rest ? 'Ruhetag' : 'Wahltag';
-    mid.appendChild(nm);
+    rw.appendChild(ib);
+    const ringBox = document.createElement('div'); ringBox.className = 'pc-ring';
+    ringBox.appendChild(rw);
+    card.appendChild(ringBox);
   }
-  card.appendChild(mid);
   return card;
 }
 
@@ -1963,10 +2128,12 @@ function renderProgress(){
       const pv = document.createElement('div'); pv.className = 'pl-pct'; pv.textContent = pct + ' %';
       el.appendChild(pv);
       const bar = document.createElement('div'); bar.className = 'pl-bar';
-      const SEGS = 16, lit = litSegs(SEGS, pct);
+      /* 07-31: weniger, dafuer breitere Segmente und flache Farbe — gleiche
+         Bauart wie die Wochen-Batterie auf der Heute-Kachel. */
+      const SEGS = 10, lit = litSegs(SEGS, pct);
       for (let s = 0; s < SEGS; s++){
         const seg = document.createElement('div'); seg.className = 'pl-seg';
-        seg.style.background = s < lit ? batteryGrad(cat.color, 180) : batteryTrack(cat.color);
+        seg.style.background = s < lit ? cat.color : batteryTrack(cat.color);
         bar.appendChild(seg);
       }
       el.appendChild(bar);
